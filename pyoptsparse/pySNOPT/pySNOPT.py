@@ -249,6 +249,7 @@ class SNOPT(Optimizer):
 
         self.callCounter = 0
         self.storeSens = storeSens
+        self._callback = optProb.callback
 
         # Store the starting time if the keyword timeLimit is given:
         self.timeLimit = timeLimit
@@ -605,6 +606,8 @@ class SNOPT(Optimizer):
                 iterDict[saveVar] = x[n:]
             elif saveVar == "lambda":
                 iterDict[saveVar] = pi
+        if self._callback is not None:
+            self._callback(iterDict)
         if self.storeHistory:
             currX = x[:n]  # only the first n component is x, the rest are the slacks
             if nmajor == 0:

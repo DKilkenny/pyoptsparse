@@ -22,7 +22,7 @@ from .types import Dict1DType, Dict2DType, NumpyType
 
 
 class Optimization(object):
-    def __init__(self, name: str, objFun: Callable, comm=None, sens: Optional[Union[str, Callable]] = None):
+    def __init__(self, name: str, objFun: Callable, comm=None, sens: Optional[Union[str, Callable]] = None, callback=None):
         """
         The main purpose of this class is to describe the structure and
         potentially, sparsity pattern of an optimization problem.
@@ -47,6 +47,7 @@ class Optimization(object):
         self.name = name
         self.objFun = objFun
         self.sens = sens
+        self.callback = callback
         if comm is None:
             self.comm = MPI.COMM_WORLD
         else:
