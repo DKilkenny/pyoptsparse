@@ -14,7 +14,7 @@ from pyoptsparse import SNOPT, Optimization
 from pyoptsparse.pyOpt_error import Error
 
 
-class TerminateComp(object):
+class TerminateComp:
     def __init__(self, max_obj=1000, max_sens=1000):
         self.max_obj = max_obj
         self.max_sens = max_sens
@@ -22,7 +22,7 @@ class TerminateComp(object):
         self.sens_count = 0
 
     def objfunc(self, xdict):
-        """ Evaluates the equation f(x,y) = (x-3)^2 + xy + (y+4)^2 - 3 """
+        """Evaluates the equation f(x,y) = (x-3)^2 + xy + (y+4)^2 - 3"""
         x = xdict["x"]
         y = xdict["y"]
         funcs = {}
@@ -79,8 +79,8 @@ class TestUserTerminationStatus(unittest.TestCase):
 
         test_name = "SNOPT_user_termination_obj"
         optOptions = {
-            "Print file": "{}.out".format(test_name),
-            "Summary file": "{}_summary.out".format(test_name),
+            "Print file": f"{test_name}.out",
+            "Summary file": f"{test_name}_summary.out",
         }
         try:
             opt = SNOPT(options=optOptions)
@@ -107,8 +107,8 @@ class TestUserTerminationStatus(unittest.TestCase):
 
         test_name = "SNOPT_user_termination_sens"
         optOptions = {
-            "Print file": "{}.out".format(test_name),
-            "Summary file": "{}_summary.out".format(test_name),
+            "Print file": f"{test_name}.out",
+            "Summary file": f"{test_name}_summary.out",
         }
         try:
             opt = SNOPT(options=optOptions)
