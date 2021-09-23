@@ -479,6 +479,8 @@ class SNOPT(Optimizer):
             sol_inform = {}
             sol_inform["value"] = inform
             sol_inform["text"] = self.informs[inform]
+            if self._callback:
+                self._callback(status=sol_inform)
 
             # Create the optimization solution
             sol = self._createSolution(optTime, sol_inform, obj, xs[:nvar], multipliers=pi)
@@ -607,7 +609,7 @@ class SNOPT(Optimizer):
             elif saveVar == "lambda":
                 iterDict[saveVar] = pi
         if self._callback is not None:
-            self._callback(iterDict)
+            self._callback(x[n:], iterDict)
         if self.storeHistory:
             currX = x[:n]  # only the first n component is x, the rest are the slacks
             if nmajor == 0:
