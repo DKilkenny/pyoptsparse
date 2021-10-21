@@ -609,7 +609,8 @@ class SNOPT(Optimizer):
             elif saveVar == "lambda":
                 iterDict[saveVar] = pi
         if self._callback is not None:
-            self._callback(x[n:], iterDict)
+            self._callback(x[n:], {'feasibility': iterDict['feasibility'],
+                                   'optimality': iterDict['optimality']})
         if self.storeHistory:
             currX = x[:n]  # only the first n component is x, the rest are the slacks
             if nmajor == 0:
